@@ -5,15 +5,8 @@ import LandingPage from "../pages/LandingPage";
 import HomePage from "../pages/HomePage";
 import ProfilePage from "../pages/ProfilePage";
 import HistoryPage from "../pages/HistoryPage";
-import {
-  Container,
-  Content,
-  Footer,
-  FooterTab,
-  Button,
-  Icon,
-  Text,
-} from "native-base";
+import RegisterPage from "../pages/RegisterPage"
+import OrderPage from "../pages/OrderPage"
 import { useFonts } from "expo-font";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -55,7 +48,7 @@ export default function BottomNav() {
         />
         <Tab.Screen
           name="History"
-          component={HistoryPage}
+          component={OrderPage}
           options={{
             tabBarLabel: "Updates",
             tabBarIcon: ({ color }) => (

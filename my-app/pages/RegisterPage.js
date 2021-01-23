@@ -5,16 +5,28 @@ import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function RegisterPage() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [address, setAddress] = useState('')
-    const [password, setPassword] = useState('')
-    const [role, setRole] = useState('student')
-    const [education, setEducation] = useState('')
-    const [currentSubject, setCurrSubject] = useState('')
     const subjects = ['mtk', 'english', 'ipa', 'ips']
+    const [inputData, setInputData] = useState({
+      name: '',
+      email: '',
+      address: '',
+      password: '',
+      role: 'student',
+      education: '',
+      selectedSubject: ''
+    })
+    
+    function handleInputChange(text, inputName){
+      const name = inputName
+      let value = text
 
-    if (role === 'teacher') {
+      setInputData({
+        ...inputData,
+        [name]: value
+      })
+    }
+
+    if (inputData.role === 'teacher') {
         return (
             <LinearGradient
                   // Background Linear Gradient
@@ -25,45 +37,45 @@ export default function RegisterPage() {
                   <Text style={{fontSize: 20, fontWeight: 'bold'}}>Register</Text>
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setName(text)}
+                    onChangeText={text => {handleInputChange(text, 'name')}}
                     placeholder="Name"
                     placeholderTextColor='white'
-                    value={name}
+                    value={inputData.name}
                    />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setEmail(text)}
+                    onChangeText={text => {handleInputChange(text, 'email')}}
                     placeholder="Email"
                     placeholderTextColor='white'
-                    value={email}
+                    value={inputData.email}
                   />
                    <TextInput
                     style={styles.input}
-                    onChangeText={text => setAddress(text)}
+                    onChangeText={text => {handleInputChange(text, 'address')}}
                     placeholder="Address"
                     placeholderTextColor='white'
-                    value={address}
+                    value={inputData.address}
                   />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setPassword(text)}
+                    onChangeText={text => {handleInputChange(text, 'password')}}
                     secureTextEntry={true}
                     placeholder="Password"
                     placeholderTextColor='white'
-                    value={password}
+                    value={inputData.password}
                   />
                   <Picker
-                      selectedValue={role}
+                      selectedValue={inputData.role}
                       style={styles.input}
-                      onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
+                      onValueChange={(itemValue, itemIndex) => {handleInputChange(itemValue, 'role')}}
                   >
                       <Picker.Item label="Student" value="student" />
                       <Picker.Item label="Teacher" value="teacher" />
                   </Picker>
                   <Picker
-                      selectedValue={currentSubject}
+                      selectedValue={inputData.selectedSubject}
                       style={styles.input}
-                      onValueChange={(itemValue, itemIndex) => setCurrSubject(itemValue)}
+                      onValueChange={(itemValue, itemIndex) => {handleInputChange(itemValue, 'selectedSubject')}}
                   >
                       {
                           subjects.map((subject, index) => {
@@ -71,8 +83,7 @@ export default function RegisterPage() {
                           })
                       }
                   </Picker>
-
-                  <TouchableHighlight style={styles.button} onPress={e => console.log(name,email,password, role, currentSubject)}>
+                  <TouchableHighlight style={styles.button} onPress={e => console.log(inputData)}>
                     <Text>Register</Text>
                   </TouchableHighlight>
               </View>
@@ -89,42 +100,42 @@ export default function RegisterPage() {
                   <Text style={{fontSize: 20, fontWeight: 'bold'}}>Register</Text>
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setName(text)}
+                    onChangeText={text => {handleInputChange(text, 'name')}}
                     placeholder="Name"
                     placeholderTextColor='white'
-                    value={name}
+                    value={inputData.name}
                    />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setEmail(text)}
+                    onChangeText={text => {handleInputChange(text, 'email')}}
                     placeholder="Email"
                     placeholderTextColor='white'
-                    value={email}
+                    value={inputData.email}
                   />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setAddress(text)}
+                    onChangeText={text => {handleInputChange(text, 'address')}}
                     placeholder="Address"
                     placeholderTextColor='white'
-                    value={address}
+                    value={inputData.address}
                   />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => setPassword(text)}
+                    onChangeText={text => {handleInputChange(text, 'password')}}
                     secureTextEntry={true}
                     placeholder="Password"
                     placeholderTextColor='white'
-                    value={password}
+                    value={inputData.password}
                   />
                   <Picker
-                      selectedValue={role}
+                      selectedValue={inputData.role}
                       style={styles.input}
-                      onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
+                      onValueChange={(itemValue, itemIndex) => {handleInputChange(itemValue, 'role')}}
                   >
                       <Picker.Item label="Student" value="student" />
                       <Picker.Item label="Teacher" value="teacher" />
                   </Picker>
-                  <TouchableHighlight style={styles.button} onPress={e => console.log(name,email,password,role)}>
+                  <TouchableHighlight style={styles.button} onPress={e => console.log(inputData)}>
                     <Text>Register</Text>
                   </TouchableHighlight>
               </View>
