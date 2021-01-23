@@ -5,13 +5,14 @@ import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default function OrderPage() {
+export default function OrderPage({navigation, route}) {
     const [subject, setSubject] = useState('')
     const listSubjects = ['Biology', 'Mathematics', 'English', 'Programming']
 
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const { teacher } = route.params
 
     const dataTeacher = {
         id: '123',
@@ -49,12 +50,13 @@ export default function OrderPage() {
               colors={['#008bb5','#48bcae']}
               style={{height: '100%'}}
           >
+          <Text>{JSON.stringify(teacher)}</Text>
           <View style={styles.container}>
               <View style={{flexDirection: 'row'}}>
                 <Image source={{ uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}} style={styles.profileImg} />
                 <View>
-                    <Text>{dataTeacher.name}</Text>
-                    <Text>{dataTeacher.email}</Text>
+                    <Text>{teacher.name}</Text>
+                    <Text>{teacher.email}</Text>
                     <View style={{flexDirection: 'row'}}>
                         <Text>{dataTeacher.distance} km</Text>
                         <Text>{dataTeacher.rating}</Text>
@@ -93,8 +95,8 @@ export default function OrderPage() {
                     onChange={onChange}
                 />
                 )}
-              <TouchableHighlight style={styles.button} onPress={e => {console.log({date: date, subject: subject, teacherId: dataTeacher.id})}}>
-                  <Text>Order</Text>
+              <TouchableHighlight style={styles.button} onPress={e => {console.log({teacherId: teacher.id})}}>
+                <Text>Order</Text>
               </TouchableHighlight>
           </View>
         </LinearGradient>

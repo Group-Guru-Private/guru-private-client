@@ -22,14 +22,14 @@ import {
   Right,
   Text,
   Left,
-  Header,
+  Title,
   Button,
-  Title
+  Header,
+  Row
 } from "native-base";
-import BottomNav from "../components/BottomNav";
 import { useNavigation } from "@react-navigation/native";
 
-export default function HomePage() {
+export default function ListTeachersPage() {
   // const [image, setImage] = useState(null);
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigation();
@@ -38,20 +38,45 @@ export default function HomePage() {
     .then((res) => res.json())
     .then((data) => setTeachers(data));
 
-  const goDetail = (id) => {
-    console.log(id);
+  //     useEffect(() => {
+  //         (async () => {
+  //           if (Platform.OS !== 'web') {
+  //             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //             if (status !== 'granted') {
+  //               alert('Sorry, we need camera roll permissions to make this work!');
+  //             }
+  //           }
+  //         })();
+  //       }, []);
+
+  //     const pickImage = async () => {
+  //     let result = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //       quality: 1,
+  //     });
+
+  //     if (!result.cancelled) {
+  //       setImage(result.uri);
+  //     }
+  //   };
+  const goDetail = (teacher) => {
+    navigate.push('Order', { teacher })
   };
 
   return (
     // <SafeAreaView style={styles.container}>
     <>
-      <View style={styles.top}></View>
-      <Text style={styles.title}>History</Text>
+      <View style={styles.top}>
+      </View>
+      <Title style={styles.title}>List teacher</Title>
+      <Right><Text style={styles.title}></Text></Right>
       <ScrollView>
         {teachers.map((teacher) => (
           <TouchableOpacity
             onPress={() => {
-              goDetail(teacher.id);
+              goDetail({id: teacher.id, name: teacher.name, email: teacher.email});
             }}
             key={teacher.id}
             style={styles.card}
@@ -63,6 +88,7 @@ export default function HomePage() {
                   <Body>
                     <Text>{teacher.name}</Text>
                     <Text note>{teacher.email}</Text>
+                    <Text note>Rp: 100.000</Text>
                   </Body>
                 </Left>
               </CardItem>
@@ -81,9 +107,8 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   top: {
-    // top: "-5%",
     width: "100%",
-    height: "30%",
+    height: "35%",
     backgroundColor: "#48bcae",
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,

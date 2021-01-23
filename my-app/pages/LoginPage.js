@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight, Touchable } from 'react-native';
 import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigation()
+
 
     return (
         <LinearGradient
@@ -35,8 +38,8 @@ export default function LoginPage() {
           <View
               style={styles.containerbot}
           >
-              <TouchableHighlight style={styles.button} onPress={e => {console.log('masuk')}}>
-                  <Text>LOGIN</Text>
+              <TouchableHighlight style={styles.button} onPress={e => {navigate.replace('BottomNav')}}>
+                <Text>LOGIN</Text>
               </TouchableHighlight>
           </View>
         </LinearGradient>

@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight, Touchable } from 'react-native';
 import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native'
 
 export default function LandingPage() {
+    const navigation = useNavigation()
 
     return (
         <LinearGradient
@@ -13,15 +15,15 @@ export default function LandingPage() {
               style={{height: '100%'}}
           >
           <View style={styles.container} >
-              <Text style={{fontSize: 50}}>Private Boss</Text>
+              <Text style={{fontSize: 40}}>Ruang Private</Text>
           </View>
           <View
               style={styles.containerbot}
           >
-              <TouchableHighlight style={styles.button} onPress={e => {console.log('masuk')}}>
+              <TouchableHighlight style={styles.button} onPress={e => {navigation.replace('Login')}}>
                   <Text>SIGN IN</Text>
               </TouchableHighlight>
-              <TouchableHighlight style={styles.button} onPress={e => {console.log('masuk')}}>
+              <TouchableHighlight style={styles.button} onPress={e => {navigation.push('Register')}}>
                   <Text>REGISTER</Text>
               </TouchableHighlight>
           </View>
