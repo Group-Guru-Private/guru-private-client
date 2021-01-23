@@ -22,10 +22,7 @@ export default function BottomNav() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        activeColor="#48bcae"
-        style={{ backgroundColor: "#48bcae" }}
-      >
+      <Tab.Navigator color="white">
         <Tab.Screen
           name="Home"
           component={HomePage}
@@ -48,9 +45,9 @@ export default function BottomNav() {
         />
         <Tab.Screen
           name="History"
-          component={OrderPage}
+          component={HistoryPage}
           options={{
-            tabBarLabel: "Updates",
+            tabBarLabel: "History",
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="bell" color={color} size={26} />
             ),
