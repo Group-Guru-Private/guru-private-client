@@ -24,10 +24,12 @@ import {
   Left,
 } from "native-base";
 import BottomNav from "../components/BottomNav";
+import { useNavigation } from "@react-navigation/native"
 
 export default function HomePage() {
   // const [image, setImage] = useState(null);
   const [teachers, setTeachers] = useState([]);
+  const navigate = useNavigation()
 
   fetch("https://jsonplaceholder.typicode.com/users")
     .then((res) => res.json())
@@ -57,7 +59,7 @@ export default function HomePage() {
   //     }
   //   };
   const goDetail = (id) => {
-    console.log(id);
+    use
   };
 
   return (
