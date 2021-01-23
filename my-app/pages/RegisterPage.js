@@ -5,14 +5,15 @@ import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function RegisterPage() {
-    const subjects = ['mtk', 'english', 'ipa', 'ips']
+    const subjects = ['mtk', 'english', 'ipa', 'ips', 'astronomi', 'geologi']
     const [inputData, setInputData] = useState({
       name: '',
       email: '',
+      phone: '',
       address: '',
       password: '',
       role: 'student',
-      education: '',
+      background: '',
       selectedSubject: ''
     })
     
@@ -49,13 +50,6 @@ export default function RegisterPage() {
                     placeholderTextColor='white'
                     value={inputData.email}
                   />
-                   <TextInput
-                    style={styles.input}
-                    onChangeText={text => {handleInputChange(text, 'address')}}
-                    placeholder="Address"
-                    placeholderTextColor='white'
-                    value={inputData.address}
-                  />
                   <TextInput
                     style={styles.input}
                     onChangeText={text => {handleInputChange(text, 'password')}}
@@ -63,6 +57,20 @@ export default function RegisterPage() {
                     placeholder="Password"
                     placeholderTextColor='white'
                     value={inputData.password}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={text => {handleInputChange(text, 'phone')}}
+                    placeholder="Phone Number"
+                    placeholderTextColor='white'
+                    value={inputData.phone}
+                   />
+                   <TextInput
+                    style={styles.input}
+                    onChangeText={text => {handleInputChange(text, 'address')}}
+                    placeholder="Address"
+                    placeholderTextColor='white'
+                    value={inputData.address}
                   />
                   <Picker
                       selectedValue={inputData.role}
@@ -72,6 +80,13 @@ export default function RegisterPage() {
                       <Picker.Item label="Student" value="student" />
                       <Picker.Item label="Teacher" value="teacher" />
                   </Picker>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={text => {handleInputChange(text, 'background')}}
+                    placeholder="Background"
+                    placeholderTextColor='white'
+                    value={inputData.background}
+                  />
                   <Picker
                       selectedValue={inputData.selectedSubject}
                       style={styles.input}
@@ -114,18 +129,25 @@ export default function RegisterPage() {
                   />
                   <TextInput
                     style={styles.input}
-                    onChangeText={text => {handleInputChange(text, 'address')}}
-                    placeholder="Address"
-                    placeholderTextColor='white'
-                    value={inputData.address}
-                  />
-                  <TextInput
-                    style={styles.input}
                     onChangeText={text => {handleInputChange(text, 'password')}}
                     secureTextEntry={true}
                     placeholder="Password"
                     placeholderTextColor='white'
                     value={inputData.password}
+                  />
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={text => {handleInputChange(text, 'phone')}}
+                    placeholder="Phone Number"
+                    placeholderTextColor='white'
+                    value={inputData.phone}
+                   />
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={text => {handleInputChange(text, 'address')}}
+                    placeholder="Address"
+                    placeholderTextColor='white'
+                    value={inputData.address}
                   />
                   <Picker
                       selectedValue={inputData.role}

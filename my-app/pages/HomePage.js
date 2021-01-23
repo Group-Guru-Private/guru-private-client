@@ -27,7 +27,6 @@ import {
   Header,
   Row
 } from "native-base";
-import BottomNav from "../components/BottomNav";
 import { useNavigation } from "@react-navigation/native";
 
 export default function HomePage() {
@@ -63,7 +62,7 @@ export default function HomePage() {
   //     }
   //   };
   const goDetail = (id) => {
-    console.log(id);
+    navigate.push('Order', { id })
   };
 
   return (
@@ -72,31 +71,6 @@ export default function HomePage() {
       <View style={styles.top}>
       </View>
       <Title style={styles.title}>List teacher</Title>
-      <Right><Text style={styles.title}>aa</Text></Right>
-      <ScrollView>
-        {teachers.map((teacher) => (
-          <TouchableOpacity
-            onPress={() => {
-              goDetail(teacher.id);
-            }}
-            key={teacher.id}
-            style={styles.card}
-          >
-            <Card style={{ borderRadius: 20 }}>
-              <CardItem style={styles.borderTop}>
-                <Left>
-                  <Thumbnail />
-                  <Body>
-                    <Text>{teacher.name}</Text>
-                    <Text note>{teacher.email}</Text>
-                    <Text note>Rp: 100.000</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-            </Card>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
       </>
     // </SafeAreaView>
   );
