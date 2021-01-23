@@ -22,14 +22,18 @@ import {
   Right,
   Text,
   Left,
+  Title,
+  Button,
+  Header,
+  Row
 } from "native-base";
 import BottomNav from "../components/BottomNav";
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomePage() {
   // const [image, setImage] = useState(null);
   const [teachers, setTeachers] = useState([]);
-  const navigate = useNavigation()
+  const navigate = useNavigation();
 
   fetch("https://jsonplaceholder.typicode.com/users")
     .then((res) => res.json())
@@ -59,13 +63,16 @@ export default function HomePage() {
   //     }
   //   };
   const goDetail = (id) => {
-    use
+    console.log(id);
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.top}></View>
-      <Text style={styles.title}>List Teachers</Text>
+    // <SafeAreaView style={styles.container}>
+    <>
+      <View style={styles.top}>
+      </View>
+      <Title style={styles.title}>List teacher</Title>
+      <Right><Text style={styles.title}>aa</Text></Right>
       <ScrollView>
         {teachers.map((teacher) => (
           <TouchableOpacity
@@ -82,6 +89,7 @@ export default function HomePage() {
                   <Body>
                     <Text>{teacher.name}</Text>
                     <Text note>{teacher.email}</Text>
+                    <Text note>Rp: 100.000</Text>
                   </Body>
                 </Left>
               </CardItem>
@@ -89,7 +97,8 @@ export default function HomePage() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-    </SafeAreaView>
+      </>
+    // </SafeAreaView>
   );
 }
 
@@ -99,19 +108,20 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   top: {
-    top: "-5%",
     width: "100%",
-    height: "25%",
+    height: "35%",
     backgroundColor: "#48bcae",
-    borderRadius: 20,
+    borderBottomRightRadius: 25,
+    borderBottomLeftRadius: 25,
     position: "absolute",
   },
   title: {
     // flex: 1,
-    marginTop: "5%",
+    marginTop: "10%",
     marginBottom: "5%",
-    textAlign: "center",
-    fontSize: 40,
+    marginLeft: "5%",
+    textAlign: "left",
+    fontSize: 32,
     fontWeight: "500",
     color: "white",
   },
