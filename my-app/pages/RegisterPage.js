@@ -6,6 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MapView , {PROVIDER_GOOGLE} from 'react-native-maps'
 import {ActivityIndicator} from 'react-native'
 import axios from '../config/axiosInstance'
+import {useNavigation} from '@react-navigation/native'
 
 export default function RegisterPage() {
     const subjects = ['mtk', 'english', 'ipa', 'ips', 'astronomi', 'geologi']
@@ -15,6 +16,7 @@ export default function RegisterPage() {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     }
+    const navigation = useNavigation()
     const [inputData, setInputData] = useState({
       name: '',
       email: '',
@@ -62,13 +64,12 @@ export default function RegisterPage() {
           telpon_number: inputData.phone,
           position: [position.latitude, position.longitude]
         }
-        // alert(JSON.stringify(payload))
         axios.post('/students/register', payload)
           .then(({ data }) => {
-            alert(JSON.stringify(data))
+            navigation.navigate('Login')
           })
           .catch(err => {
-            if (err) alert(JSON.stringify(err.response.data))
+            if (err) alert(err.response.data.message.split(',').map(msg => msg))
           })
       }else {
         const payload = {
@@ -84,20 +85,14 @@ export default function RegisterPage() {
           price: 0,
           image_url: 'https://www.abadikini.com/media/files/2019/09/IMG_20190908_191823-390x220.jpg'
         }
-        // alert(JSON.stringify(payload))
         axios.post('/teachers/register', payload)
           .then(({ data }) => {
-            alert(JSON.stringify(data))
+            navigation.navigate('Login')
           })
           .catch(err => {
-            if (err) alert(JSON.stringify(err.response.data))
+            if (err) alert(err.response.data.message.split(',').map(msg => msg))
           })
       }
-      // const payload = {
-      //   ...inputData,
-      //   ...position
-      // }
-      // alert(JSON.stringify(payload))
     }
     // if (position.latitude !== null) {
     if (inputData.role === 'teacher') {
