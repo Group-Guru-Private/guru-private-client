@@ -3,6 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import store from './store';
 import BottomNav from './components/BottomNav';
+import BottomNavTeacher from './components/BottomNavTeacher';
 import LandingPage from './pages/LandingPage'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Order" component={OrderPage} />
           <Stack.Screen name="BottomNav" options={{headerTransparent: true, title: null}} component={BottomNav}/>
+          <Stack.Screen name="BottomNavTeacher" options={{headerTransparent: true, title: null}} component={BottomNavTeacher}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

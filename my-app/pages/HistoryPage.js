@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   top: {
     // top: "-5%",
     width: "100%",
-    height: "30%",
+    height: "35%",
     backgroundColor: "#48bcae",
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,

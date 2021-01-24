@@ -1,15 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight, Touchable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight} from 'react-native';
 import { Picker } from '@react-native-picker/picker'
+import {useDispatch, useSelector} from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
+import CheckBox from '@react-native-community/checkbox'
+import { loginStudent, loginTeacher } from '../store/action'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
     const navigate = useNavigation()
+    const [isSelected, setSelection] = useState(false)
+    const access_token = useSelector(state=> state.access_token)
+    console.log(isSelected)
 
+    function handleLogin() {
+
+        if(isSelected === true){
+            dispatch(loginTeacher(email,password))
+            navigate.replace('BottomNavTeacher')
+        } 
+        else if (isSelected === false){
+            dispatch(loginStudent(email,password))
+            if(!access_token){
+                navigate.replace('Login')
+            }
+            else if(access_token){
+                navigate.replace('BottomNav')
+            }
+           
+
+            
+        }
+    }
 
     return (
         <LinearGradient
@@ -34,11 +60,18 @@ export default function LoginPage() {
                 onChangeText={text => setPassword(text)}
                 value={password}
               />
+              <View style={{flexDirection: 'row'}}>
+                <CheckBox
+                    value={isSelected}
+                    onValueChange={(newValue) => setSelection(newValue)}
+                    />
+                <Text style={{padding: 5}}>I'm a teacher</Text>
+              </View>
           </View>
           <View
               style={styles.containerbot}
           >
-              <TouchableHighlight style={styles.button} onPress={e => {navigate.replace('BottomNav')}}>
+              <TouchableHighlight style={styles.button} onPress={handleLogin}>
                 <Text>LOGIN</Text>
               </TouchableHighlight>
           </View>

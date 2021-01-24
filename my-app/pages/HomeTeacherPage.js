@@ -7,7 +7,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  Dimensions,
+  Dimensions
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import LandingPage from "./LandingPage";
@@ -37,7 +37,7 @@ const photo = [
   {
     albumId: 1,
     id: 1,
-    title: "accusamus beatae ad facilis cum similique qui sunt",
+    title: "Sudirman",
     url: "https://via.placeholder.com/600/92c952",
     thumbnailUrl: "https://via.placeholder.com/150/92c952",
   },
@@ -78,12 +78,11 @@ const photo = [
   },
 ];
 
-export default function HomePage() {
+export default function HomeTeacherPage() {
   // const [image, setImage] = useState(null);
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigation();
   const access_token = useSelector(state=> state.access_token)
-  console.log(access_token)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -98,7 +97,29 @@ export default function HomePage() {
     }
   },[])
 
- 
+  //     useEffect(() => {
+  //         (async () => {
+  //           if (Platform.OS !== 'web') {
+  //             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //             if (status !== 'granted') {
+  //               alert('Sorry, we need camera roll permissions to make this work!');
+  //             }
+  //           }
+  //         })();
+  //       }, []);
+
+  //     const pickImage = async () => {
+  //     let result = await ImagePicker.launchImageLibraryAsync({
+  //       mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //       quality: 1,
+  //     });
+
+  //     if (!result.cancelled) {
+  //       setImage(result.uri);
+  //     }
+  //   };
   const goDetail = ({item}) => {
     return (
       <View style={{
@@ -109,7 +130,6 @@ export default function HomePage() {
         borderRadius:20
       }}>
         <Text style={{fontSize: 20}}>{item.title}</Text>
-        {/* <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png'}} style={{width: 100, height: 100}}></Image> */}
       </View>
     )
   };
@@ -133,21 +153,16 @@ export default function HomePage() {
     // <SafeAreaView style={styles.container}>
     <>
       <View style={styles.top}></View>
-      <Title style={styles.title}>masuk murid </Title>
-      <Text style={{ fontSize: 20, color: 'white', marginLeft: '6%' }}> 
-
-        {
-         
-          JSON.stringify(access_token)
-        }
-        
-
-
+      <Title style={styles.title}>Hello!</Title>
+      <Text style={{ fontSize: 20, color: 'white', marginLeft: '6%' }}>Guru
+      {
+        JSON.stringify(access_token)
+      }
       </Text>
       <View style={{flex:1, flexDirection: 'row', justifyContent: "center", marginTop: '5%'}}>
       <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={photo} itemWidth={350} renderItem={goDetail}></Carousel>
       </View>
-      <Text style={{ fontSize: 26, color: "#48bcae", marginLeft: '5%', top: '5%' }}>Top teacher on the week</Text>
+      <Text style={{ fontSize: 26, color: "#48bcae", marginLeft: '5%', top: '5%' }}>List Students</Text>
       <View style={{flex:1, flexDirection: 'row', marginLeft: '-20%', marginTop: '15%',}}>
       <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={photo} itemWidth={200} renderItem={goSquare  }></Carousel>
       </View>
