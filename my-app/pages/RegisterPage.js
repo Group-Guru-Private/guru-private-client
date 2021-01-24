@@ -1,11 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight, Touchable, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
+import MapView , {PROVIDER_GOOGLE} from 'react-native-maps'
+import {ActivityIndicator} from 'react-native'
+import axios from 'axios'
 
 export default function RegisterPage() {
     const subjects = ['mtk', 'english', 'ipa', 'ips', 'astronomi', 'geologi']
+    const initPosition = {
+      latitude: 0,
+      longitude: 0,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    }
     const [inputData, setInputData] = useState({
       name: '',
       email: '',
@@ -16,7 +25,22 @@ export default function RegisterPage() {
       background: '',
       selectedSubject: ''
     })
+    const [position, setPosition] = useState(initPosition)
     
+    useEffect(() => {
+      navigator.geolocation.getCurrentPosition(currentPosition => {
+        // alert(JSON.stringify(currentPosition))
+        const { latitude, longitude } = currentPosition.coords
+        setPosition({
+          ...position,
+          latitude,
+          longitude
+        })
+      }, 
+      error => alert(error.message), 
+      { timeout: 5000, maximumAge: 1000 })
+    }, [])
+
     function handleInputChange(text, inputName){
       const name = inputName
       let value = text
@@ -27,6 +51,14 @@ export default function RegisterPage() {
       })
     }
 
+    const register = () => {
+      const payload = {
+        ...inputData,
+        ...position
+      }
+      alert(JSON.stringify(payload))
+    }
+    // if (position.latitude !== null) {
     if (inputData.role === 'teacher') {
         return (
             <LinearGradient
@@ -98,7 +130,7 @@ export default function RegisterPage() {
                           })
                       }
                   </Picker>
-                  <TouchableHighlight style={styles.button} onPress={e => console.log(inputData)}>
+                  <TouchableHighlight style={styles.button} onPress={register}>
                     <Text>Register</Text>
                   </TouchableHighlight>
               </View>
@@ -111,6 +143,12 @@ export default function RegisterPage() {
                   colors={['#008bb5','#48bcae']}
                   style={{height: '100%'}}
               >
+              {/* <MapView 
+                provider={PROVIDER_GOOGLE}
+                style={{ flex: 1 }}
+                showsUserLocation
+                initialRegion={position}
+              /> */}
               <View style={styles.container}>
                   <Text style={{fontSize: 20, fontWeight: 'bold'}}>Register</Text>
                   <TextInput
@@ -157,13 +195,14 @@ export default function RegisterPage() {
                       <Picker.Item label="Student" value="student" />
                       <Picker.Item label="Teacher" value="teacher" />
                   </Picker>
-                  <TouchableHighlight style={styles.button} onPress={e => console.log(inputData)}>
+                  <TouchableHighlight style={styles.button} onPress={register}>
                     <Text>Register</Text>
                   </TouchableHighlight>
               </View>
           </LinearGradient>
         );
     }
+  // } else <ActivityIndicator style={{ flex: 1 }} animating size="large" />
 }
 
 const styles = StyleSheet.create({
