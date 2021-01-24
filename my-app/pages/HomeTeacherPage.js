@@ -80,15 +80,17 @@ const photo = [
 
 export default function HomeTeacherPage() {
   // const [image, setImage] = useState(null);
-  const [teachers, setTeachers] = useState([]);
+  // const [teachers, setTeachers] = useState([]);
   const navigate = useNavigation();
   const access_token = useSelector(state=> state.access_token)
+  const teachers = useSelector(state=> state.teachers)
+  console.log(access_token)
 
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
 
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://192.168.100.37:3000/teachers")
       .then((res) => res.json())
       .then((data) => setTeachers(data));
 
@@ -96,6 +98,8 @@ export default function HomeTeacherPage() {
       abortController.abort()
     }
   },[])
+
+  console.log(teachers);
 
   //     useEffect(() => {
   //         (async () => {
@@ -160,11 +164,11 @@ export default function HomeTeacherPage() {
       }
       </Text>
       <View style={{flex:1, flexDirection: 'row', justifyContent: "center", marginTop: '5%'}}>
-      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={photo} itemWidth={350} renderItem={goDetail}></Carousel>
+      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={teachers} itemWidth={350} renderItem={goDetail}></Carousel>
       </View>
       <Text style={{ fontSize: 26, color: "#48bcae", marginLeft: '5%', top: '5%' }}>List Students</Text>
       <View style={{flex:1, flexDirection: 'row', marginLeft: '-20%', marginTop: '15%',}}>
-      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={photo} itemWidth={200} renderItem={goSquare  }></Carousel>
+      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={teachers} itemWidth={200} renderItem={goSquare  }></Carousel>
       </View>
     </>
     // </SafeAreaView>
