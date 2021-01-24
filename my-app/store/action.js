@@ -12,7 +12,7 @@ export const loginStudent = (email,password) => {
     })
     axios({
       method: "POST",
-      url: "students/login",
+      url: "/students/login",
       data: {
         email: email,
         password: password
@@ -50,7 +50,7 @@ export const loginTeacher = (email,password) => {
     })
     axios({
       method: "POST",
-      url: "teachers/login",
+      url: "/teachers/login",
       data: {
         email: email,
         password: password
@@ -87,7 +87,7 @@ export const fetchStudent = () => {
     })
     axios({
       method: "GET",
-      url: "students",
+      url: "/students",
     })
       .then(({data}) => {
         console.log(data)
@@ -119,7 +119,7 @@ export const fetchTeachers = () => {
     })
     axios({
       method: "GET",
-      url: "teachers",
+      url: "/teachers",
     })
       .then(({data}) => {
         console.log(data)

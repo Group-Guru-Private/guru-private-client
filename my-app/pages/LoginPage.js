@@ -9,7 +9,7 @@ import CheckBox from '@react-native-community/checkbox'
 import { loginStudent, loginTeacher } from '../store/action'
 import { acc } from 'react-native-reanimated';
 
-export default function LoginPage() {
+export default function LoginPage({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
@@ -22,38 +22,38 @@ export default function LoginPage() {
 
         if(isSelected === true){
             dispatch(loginTeacher(email,password))
-            // const aksesGuru = access_token
-            // // if(!aksesGuru){
-            // //     navigate.replace('Login')
-            // // }
-            // if(aksesGuru){
-            //     navigation.navigate('BottomNavTeacher')
-            // }
+            const aksesGuru = access_token
+            if(!aksesGuru){
+                navigate.replace('Login')
+            }
+            if(aksesGuru){
+                 navigate.replace('BottomNavTeacher')
+            }
         } 
         else if (isSelected === false){
             dispatch(loginStudent(email,password))
-    //         const aksesStudent = access_token
-    //         // if(!aksesStudent){
-    //         //     navigate.replace('Login')
-    //         // }
-    //  if(aksesStudent){
-    //     navigation.navigate('BottomNav')
-    //         }
+            const aksesStudent = access_token
+            if(!aksesStudent){
+                navigate.replace('Login')
+            }
+     if(aksesStudent){
+        navigate.replace('BottomNav')
+            }
         }
     }
 
-    useEffect(() => {
-        if (!access_token){
-            navigate.replace('Login')
-        }
-        else if(access_token && isSelected === true) {
-          navigate.replace('BottomNavTeacher')
-        } 
-        else if ( access_token && isSelected === false) {
-            navigate.replace('BottomNav')
+    // useEffect(() => {
+    //     if (!access_token){
+    //         navigate.replace('Login')
+    //     }
+    //     else if(access_token && isSelected === true) {
+    //       navigate.replace('BottomNavTeacher')
+    //     } 
+    //     else if ( access_token && isSelected === false) {
+    //         navigate.replace('BottomNav')
 
-        }
-      }, [])
+    //     }
+    //   }, [])
 
     return (
         <LinearGradient
