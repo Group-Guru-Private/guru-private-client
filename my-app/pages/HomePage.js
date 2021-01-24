@@ -80,25 +80,13 @@ import { acc } from "react-native-reanimated";
 
 export default function HomePage() {
   // const [image, setImage] = useState(null);
-  const [teachers, setTeachers] = useState([]);
+  
   const navigate = useNavigation();
   const access_token = useSelector(state=> state.access_token)
-  console.log(access_token)
+  const students = useSelector(state=> state.students)
 
-  useEffect(() => {
-    const abortController = new AbortController()
-    const signal = abortController.signal
 
-    fetch("http://192.168.100.37:3000/teachers")
-      .then((res) => res.json())
-      .then((data) => setTeachers(data));
-
-    return function cleanUp() {
-      abortController.abort()
-    }
-  },[])
-
-  console.log(teachers);
+  console.log(students);
  
   const goDetail = ({item}) => {
     return (
@@ -143,18 +131,18 @@ export default function HomePage() {
 
         {
          
-          JSON.stringify(access_token)
+          JSON.stringify(students)
         }
         
 
 
       </Text>
       <View style={{flex:1, flexDirection: 'row', justifyContent: "center", marginTop: '5%'}}>
-      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={teachers} itemWidth={350} renderItem={goDetail}></Carousel>
+      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={students} itemWidth={350} renderItem={goDetail}></Carousel>
       </View>
       <Text style={{ fontSize: 26, color: "#48bcae", marginLeft: '5%', top: '5%' }}>Top teacher on the week</Text>
       <View style={{flex:1, flexDirection: 'row', marginLeft: '-20%', marginTop: '15%',}}>
-      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={teachers} itemWidth={200} renderItem={goSquare  }></Carousel>
+      <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={students} itemWidth={200} renderItem={goSquare  }></Carousel>
       </View>
     </>
     // </SafeAreaView>

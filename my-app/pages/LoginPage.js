@@ -7,35 +7,53 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from '@react-native-community/checkbox'
 import { loginStudent, loginTeacher } from '../store/action'
+import { acc } from 'react-native-reanimated';
 
-export default function LoginPage() {
+export default function LoginPage({navigation}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigation()
     const [isSelected, setSelection] = useState(false)
     const access_token = useSelector(state=> state.access_token)
-    console.log(isSelected)
+  
 
     function handleLogin() {
 
         if(isSelected === true){
             dispatch(loginTeacher(email,password))
-            navigate.replace('BottomNavTeacher')
+            const aksesGuru = access_token
+            if(!aksesGuru){
+                navigate.replace('Login')
+            }
+            if(aksesGuru){
+                 navigate.replace('BottomNavTeacher')
+            }
         } 
         else if (isSelected === false){
             dispatch(loginStudent(email,password))
-            if(!access_token){
+            const aksesStudent = access_token
+            if(!aksesStudent){
                 navigate.replace('Login')
             }
-            else if(access_token){
-                navigate.replace('BottomNav')
+     if(aksesStudent){
+        navigate.replace('BottomNav')
             }
-           
-
-            
         }
     }
+
+    // useEffect(() => {
+    //     if (!access_token){
+    //         navigate.replace('Login')
+    //     }
+    //     else if(access_token && isSelected === true) {
+    //       navigate.replace('BottomNavTeacher')
+    //     } 
+    //     else if ( access_token && isSelected === false) {
+    //         navigate.replace('BottomNav')
+
+    //     }
+    //   }, [])
 
     return (
         <LinearGradient

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../config/axiosInstance'
 
 
 export const loginStudent = (email,password) => {
@@ -12,7 +12,7 @@ export const loginStudent = (email,password) => {
     })
     axios({
       method: "POST",
-      url: "https://dangerous-wombat-18.loca.lt/students/login",
+      url: "/students/login",
       data: {
         email: email,
         password: password
@@ -50,7 +50,7 @@ export const loginTeacher = (email,password) => {
     })
     axios({
       method: "POST",
-      url: "https://dangerous-wombat-18.loca.lt/teachers/login",
+      url: "/teachers/login",
       data: {
         email: email,
         password: password
@@ -61,6 +61,71 @@ export const loginTeacher = (email,password) => {
         dispatch({
           type: "SET_ACCESS_TOKEN",
           payload: data.access_token,
+        })
+      
+        })
+        .catch(err=>{
+          (console.log(err))
+        })
+        .finally(()=> {
+          dispatch({
+            type: "SET_LOADING",
+            loading: false,
+          })
+        })
+      }
+}
+
+export const fetchStudent = () => {
+
+  console.log('masuk fetch stud')
+  return (dispatch,getState)=>{
+   
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    })
+    axios({
+      method: "GET",
+      url: "/students",
+    })
+      .then(({data}) => {
+        console.log(data)
+        dispatch({
+          type: "SET_ALL_STUDENT",
+          payload: data,
+        })
+      
+        })
+        .catch(err=>{
+          (console.log(err))
+        })
+        .finally(()=> {
+          dispatch({
+            type: "SET_LOADING",
+            loading: false,
+          })
+        })
+      }
+}
+export const fetchTeachers = () => {
+
+  console.log('masuk fetch teacher')
+  return (dispatch,getState)=>{
+   
+    dispatch({
+      type: "SET_LOADING",
+      payload: true,
+    })
+    axios({
+      method: "GET",
+      url: "/teachers",
+    })
+      .then(({data}) => {
+        console.log(data)
+        dispatch({
+          type: "SET_ALL_TEACHERS",
+          payload: data,
         })
       
         })
