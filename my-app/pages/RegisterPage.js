@@ -5,7 +5,7 @@ import { Picker } from '@react-native-picker/picker'
 import { LinearGradient } from 'expo-linear-gradient';
 import MapView , {PROVIDER_GOOGLE} from 'react-native-maps'
 import {ActivityIndicator} from 'react-native'
-import axios from 'axios'
+import axios from '../config/axiosInstance'
 
 export default function RegisterPage() {
     const subjects = ['mtk', 'english', 'ipa', 'ips', 'astronomi', 'geologi']
@@ -52,11 +52,52 @@ export default function RegisterPage() {
     }
 
     const register = () => {
-      const payload = {
-        ...inputData,
-        ...position
+      if (inputData.role === 'student') {
+        const payload = {
+          name: inputData.name,
+          email: inputData.email,
+          password: inputData.password,
+          role: 'student',
+          address: inputData.address,
+          telpon_number: inputData.phone,
+          position: [position.latitude, position.longitude]
+        }
+        // alert(JSON.stringify(payload))
+        axios.post('/students/register', payload)
+          .then(({ data }) => {
+            alert(JSON.stringify(data))
+          })
+          .catch(err => {
+            if (err) alert(JSON.stringify(err.response.data))
+          })
+      }else {
+        const payload = {
+          name: inputData.name,
+          email: inputData.email,
+          password: inputData.password,
+          role: 'teacher',
+          address: inputData.address,
+          telpon_number: inputData.phone,
+          position: [position.latitude, position.longitude],
+          subjects: [inputData.selectedSubject],
+          background: inputData.background,
+          price: 0,
+          image_url: 'https://www.abadikini.com/media/files/2019/09/IMG_20190908_191823-390x220.jpg'
+        }
+        // alert(JSON.stringify(payload))
+        axios.post('/teachers/register', payload)
+          .then(({ data }) => {
+            alert(JSON.stringify(data))
+          })
+          .catch(err => {
+            if (err) alert(JSON.stringify(err.response.data))
+          })
       }
-      alert(JSON.stringify(payload))
+      // const payload = {
+      //   ...inputData,
+      //   ...position
+      // }
+      // alert(JSON.stringify(payload))
     }
     // if (position.latitude !== null) {
     if (inputData.role === 'teacher') {
