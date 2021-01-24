@@ -1,59 +1,57 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight, Alert} from 'react-native';
 import { Picker } from '@react-native-picker/picker'
-import {useDispatch, useSelector} from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from '@react-native-community/checkbox'
-import { loginStudent, loginTeacher } from '../store/action'
-import { acc } from 'react-native-reanimated';
+import axios from 'axios'
 
-export default function LoginPage({navigation}) {
+export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
     const navigate = useNavigation()
-    const [isSelected, setSelection] = useState(false)
-    const access_token = useSelector(state=> state.access_token)
-  
+    const [isSelected, setSelection] = useState(false);
 
     function handleLogin() {
-
-        if(isSelected === true){
-            dispatch(loginTeacher(email,password))
-            const aksesGuru = access_token
-            if(!aksesGuru){
-                navigate.replace('Login')
-            }
-            if(aksesGuru){
-                 navigate.replace('BottomNavTeacher')
-            }
-        } 
-        else if (isSelected === false){
-            dispatch(loginStudent(email,password))
-            const aksesStudent = access_token
-            if(!aksesStudent){
-                navigate.replace('Login')
-            }
-     if(aksesStudent){
-        navigate.replace('BottomNav')
-            }
+        if(isSelected){
+                axios({
+                    url: 'http://192.168.0.100:3000/teachers/login',
+                    method: 'POST',
+                    data: {
+                        email: email,
+                        password: password
+                    }
+                })
+                .then(({data}) => {
+                    console.log(data)
+                    navigate.replace('BottomNavTeacher')
+                })
+                .catch(err => {
+                    console.log(err);
+                    Alert.alert('Invalid Email or Password')
+                })
+            
+        } else {
+            
+            axios({
+                url: 'http://192.168.0.100:3000/students/login',
+                method: 'POST',
+                data: {
+                    email: email,
+                    password: password
+                }
+            })
+            .then(({data}) => {
+                console.log(data)
+                navigate.replace('BottomNav')
+            })
+            .catch(err => {
+                console.log(err);
+                Alert.alert('Invalid Email or Password')
+            })
         }
     }
-
-    // useEffect(() => {
-    //     if (!access_token){
-    //         navigate.replace('Login')
-    //     }
-    //     else if(access_token && isSelected === true) {
-    //       navigate.replace('BottomNavTeacher')
-    //     } 
-    //     else if ( access_token && isSelected === false) {
-    //         navigate.replace('BottomNav')
-
-    //     }
-    //   }, [])
 
     return (
         <LinearGradient
