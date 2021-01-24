@@ -9,7 +9,7 @@ import axios from '../config/axiosInstance'
 import {useNavigation} from '@react-navigation/native'
 
 export default function RegisterPage() {
-    const subjects = ['mtk', 'english', 'ipa', 'ips', 'astronomi', 'geologi']
+    const subjects = ['Mathematics', 'English', 'Chemisty', 'Physics', 'Biology', 'Bahasa Indonesia', 'History', 'Geography', 'Sociology', 'Economics']
     const initPosition = {
       latitude: 0,
       longitude: 0,
