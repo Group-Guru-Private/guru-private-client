@@ -6,7 +6,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import LandingPage from "./LandingPage";
@@ -94,29 +94,7 @@ export default function HomePage() {
     }
   },[])
 
-  //     useEffect(() => {
-  //         (async () => {
-  //           if (Platform.OS !== 'web') {
-  //             const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //             if (status !== 'granted') {
-  //               alert('Sorry, we need camera roll permissions to make this work!');
-  //             }
-  //           }
-  //         })();
-  //       }, []);
-
-  //     const pickImage = async () => {
-  //     let result = await ImagePicker.launchImageLibraryAsync({
-  //       mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //       allowsEditing: true,
-  //       aspect: [4, 3],
-  //       quality: 1,
-  //     });
-
-  //     if (!result.cancelled) {
-  //       setImage(result.uri);
-  //     }
-  //   };
+ 
   const goDetail = ({item}) => {
     return (
       <View style={{
@@ -127,6 +105,7 @@ export default function HomePage() {
         borderRadius:20
       }}>
         <Text style={{fontSize: 20}}>{item.title}</Text>
+        {/* <Image source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png'}} style={{width: 100, height: 100}}></Image> */}
       </View>
     )
   };
