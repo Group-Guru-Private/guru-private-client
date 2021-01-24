@@ -34,7 +34,7 @@ export default function ListTeachersPage() {
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigation();
 
-  fetch("https://jsonplaceholder.typicode.com/users")
+  fetch("http://192.168.100.37:3000/teachers")
     .then((res) => res.json())
     .then((data) => setTeachers(data));
 
