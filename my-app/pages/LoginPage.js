@@ -2,22 +2,38 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, TouchableHighlight} from 'react-native';
 import { Picker } from '@react-native-picker/picker'
+import {useDispatch, useSelector} from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native'
 import CheckBox from '@react-native-community/checkbox'
+import { loginStudent, loginTeacher } from '../store/action'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
     const navigate = useNavigation()
-    const [isSelected, setSelection] = useState(false);
-
+    const [isSelected, setSelection] = useState(false)
+    const access_token = useSelector(state=> state.access_token)
+    console.log(isSelected)
 
     function handleLogin() {
-        if(isSelected){
+
+        if(isSelected === true){
+            dispatch(loginTeacher(email,password))
             navigate.replace('BottomNavTeacher')
-        } else {
-            navigate.replace('BottomNav')
+        } 
+        else if (isSelected === false){
+            dispatch(loginStudent(email,password))
+            if(!access_token){
+                navigate.replace('Login')
+            }
+            else if(access_token){
+                navigate.replace('BottomNav')
+            }
+           
+
+            
         }
     }
 

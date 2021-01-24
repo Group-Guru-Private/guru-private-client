@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux'
 import {
   Image,
   StyleSheet,
@@ -30,6 +31,7 @@ import {
 } from "native-base";
 import { useNavigation } from "@react-navigation/native";
 import Carousel from "react-native-snap-carousel";
+import { acc } from "react-native-reanimated";
 
 const photo = [
   {
@@ -80,6 +82,7 @@ export default function HomeTeacherPage() {
   // const [image, setImage] = useState(null);
   const [teachers, setTeachers] = useState([]);
   const navigate = useNavigation();
+  const access_token = useSelector(state=> state.access_token)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -151,7 +154,11 @@ export default function HomeTeacherPage() {
     <>
       <View style={styles.top}></View>
       <Title style={styles.title}>Hello!</Title>
-      <Text style={{ fontSize: 20, color: 'white', marginLeft: '6%' }}>Pak Agus</Text>
+      <Text style={{ fontSize: 20, color: 'white', marginLeft: '6%' }}>Guru
+      {
+        JSON.stringify(access_token)
+      }
+      </Text>
       <View style={{flex:1, flexDirection: 'row', justifyContent: "center", marginTop: '5%'}}>
       <Carousel layout={'default'} sliderWidth={SLIDER_WIDTH} data={photo} itemWidth={350} renderItem={goDetail}></Carousel>
       </View>

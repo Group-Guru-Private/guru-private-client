@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { Provider } from 'react-redux'
+import store from './store';
 import BottomNav from './components/BottomNav';
 import BottomNavTeacher from './components/BottomNavTeacher';
 import LandingPage from './pages/LandingPage'
@@ -20,6 +22,8 @@ export default function App() {
 
   return (
     <>
+    <Provider store= {store}>
+
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Landing" component={LandingPage} />
@@ -30,6 +34,8 @@ export default function App() {
           <Stack.Screen name="BottomNavTeacher" options={{headerTransparent: true, title: null}} component={BottomNavTeacher}/>
         </Stack.Navigator>
       </NavigationContainer>
+    </Provider>
+
     </>
   );
 }
